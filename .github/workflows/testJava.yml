@@ -12,20 +12,18 @@ on:
     branches: 
       - main
 
-# Forces the runner engine to execute JavaScript actions on Node 24, silencing the deprecation warning
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # Pinning exact SHA for actions/checkout that natively targets Node 24+
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         
+      # Pinning exact SHA for actions/setup-java with Node 24 support
       - name: Set up JDK 25
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@3a47a56d2631a731b54a0e0a46ee31c79959774b # v4.7.0
         with:
           java-version: '25'
           distribution: 'temurin'
