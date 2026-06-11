@@ -17,21 +17,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Fixed: Reverted back to the reliable v4 branch reference
+      # Step 1: Pull your repository files onto the runner
+      # Upgraded to @v6 to naturally use Node.js 24 and stop warnings
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         
-      # Fixed: Reverted back to the reliable v4 branch reference
+      # Step 2: Install and configure Java 25 (MUST happen before running Maven)
+      # Upgraded to @v5 to naturally use Node.js 24 and stop warnings
       - name: Set up JDK 25
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '25'
           distribution: 'temurin'
           cache: maven
 
+      # Step 3: Compile your project and run your code tests
       - name: Build project and run all tests
         run: mvn test
 
-      # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts
+      # Step 4: Optional security and dependency telemetry
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
