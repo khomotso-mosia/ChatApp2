@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Pinning exact SHA for actions/checkout that natively targets Node 24+
+      # Fixed: Reverted back to the reliable v4 branch reference
       - name: Check out the code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
         
-      # Pinning exact SHA for actions/setup-java with Node 24 support
+      # Fixed: Reverted back to the reliable v4 branch reference
       - name: Set up JDK 25
-        uses: actions/setup-java@3a47a56d2631a731b54a0e0a46ee31c79959774b # v4.7.0
+        uses: actions/setup-java@v4
         with:
           java-version: '25'
           distribution: 'temurin'
