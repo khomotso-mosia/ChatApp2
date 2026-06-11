@@ -1,40 +1,19 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+name: Java CI
 
-name: Java CI with Maven
-
-on:
-  push:
-    branches: 
-      - main
-      - Part2-SendMessages
-  pull_request:
-    branches: 
-      - main
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Pull your repository files onto the runner
-      # Upgraded to @v6 to naturally use Node.js 24 and stop warnings
-      - name: Check out the code
-        uses: actions/checkout@v6
-        
-      # Step 2: Install and configure Java 25 (MUST happen before running Maven)
-      # Upgraded to @v5 to naturally use Node.js 24 and stop warnings
-      - name: Set up JDK 25
-        uses: actions/setup-java@v5
-        with:
-          java-version: '25'
-          distribution: 'temurin'
-          cache: maven
+    - uses: actions/checkout@v3
 
-      # Step 3: Compile your project and run your code tests
-      - name: Build project and run all tests
-        run: mvn test
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
 
-      # Step 4: Optional security and dependency telemetry
-      - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+    - name: Build and run all tests with Maven
+      run: mvn test
